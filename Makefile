@@ -10,5 +10,11 @@ MILL ?= mill
 verilog:
 	cd $(base_dir) && $(MILL) emulator[freechips.rocketchip.system.TestHarness,$(CONFIG)].mfccompiler.compile
 
+idea:
+	mill -i mill.idea.GenIdea/idea
+
+bsp:
+	mill mill.bsp.BSP/install
+
 clean:
 	rm -rf out/
