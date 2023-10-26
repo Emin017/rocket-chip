@@ -1,5 +1,15 @@
+# IDE's support
 .idea/
 .bsp/
+
+tags
+cscope.out
+cscope.in.out
+cscope.po.out
+compile_commands.json
+
+.cache/
+build/
 out/
 target/
 project/target
