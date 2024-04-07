@@ -4,8 +4,8 @@ package freechips.rocketchip.util
 
 import chisel3._
 import scala.collection.immutable.ListMap
-import chisel3.internal.requireIsChiselType
-import chisel3.experimental.DataMirror.internal.chiselTypeClone
+import chisel3.experimental.requireIsChiselType
+import chisel3.reflect.DataMirror.internal.chiselTypeClone
 
 final class RecordMap[T <: Data] (eltMap: ListMap[String, T])
     extends Record {
@@ -13,7 +13,7 @@ final class RecordMap[T <: Data] (eltMap: ListMap[String, T])
   eltMap.foreach { case (name, elt) => requireIsChiselType(elt, name) }
 
   // This is needed for Record
-  val elements = ListMap[String, T]() ++ eltMap.mapValues(chiselTypeClone(_).asInstanceOf[T])  // mapValues return value is lazy
+  val elements = ListMap[String, T]() ++ eltMap.view.mapValues(chiselTypeClone(_).asInstanceOf[T])  // mapValues return value is lazy
 
   def apply(x: Int) = elements.values.toSeq(x)
   def apply(x: String) = elements.get(x)
